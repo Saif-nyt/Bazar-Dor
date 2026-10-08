@@ -1,29 +1,24 @@
 
+"use client";
 
-
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 const Navbar = () => {
- const today = new Date();
+  const today = new Date();
 
   const banglaDate = today.toLocaleDateString("bn-BD", {
     weekday: "long",
     year: "numeric",
     month: "long",
-    day: "numeric"
-   
+    day: "numeric",
   });
-  console.log("dateeeeeeee",banglaDate);
 
-
-    return (
-       
-  
+  return (
     <header className="border-b border-green-100 bg-white">
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="mx-auto max-w-7xl px-4">
 
-       
+        
         <div className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:justify-between">
 
           {/* Logo */}
@@ -63,67 +58,68 @@ const Navbar = () => {
 
         {/* Categories */}
         <nav className="flex gap-2 overflow-x-auto pb-4">
-         
 
           <Link
             href="/category/chal"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-           🍚চাল
+            🍚 চাল
           </Link>
 
           <Link
-            href="/category/chal"
+            href="/category/dal"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-           🫘ডাল
+            🫘 ডাল
           </Link>
 
           <Link
-            href="/category/chal"
+            href="/category/tel"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-           🛢️তেল 
+            🛢️ তেল
           </Link>
 
           <Link
             href="/category/shobji"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-            🥬সবজি
+            🥬 সবজি
           </Link>
 
           <Link
             href="/category/mach"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-            🐟মাছ
+            🐟 মাছ
           </Link>
 
           <Link
             href="/category/mangsho"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-            🥩মাংস
+            🥩 মাংস
           </Link>
 
           <Link
             href="/category/dim"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-                🥚ডিম-দুধ🥛
+            🥚 ডিম-দুধ 🥛
           </Link>
+
           <Link
-            href="/category/dim"
+            href="/category/moshla"
             className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
           >
-                🌶️মসলা 
+            🌶️ মসলা
           </Link>
+
         </nav>
-
       </div>
     </header>
   );
 };
 
 export default Navbar;
+
