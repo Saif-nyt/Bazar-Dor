@@ -20,6 +20,12 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Editor autocomplete
+
+The workspace enables VS Code suggestions, inline completions, parameter hints, TypeScript/JavaScript auto-imports, and Emmet expansions. Install the recommended Tailwind CSS IntelliSense and ESLint extensions when prompted.
+
+To enable the Next.js TypeScript plugin for richer type checking and completions, open the Command Palette (`Ctrl`/`⌘` + `Shift` + `P`), run **TypeScript: Select TypeScript Version**, then choose **Use Workspace Version**.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
