@@ -62,8 +62,9 @@ const Navbar = () => {
         {/* Categories */}
         
         <NavLink/>
-        <Marquee/>
+        
       </div>
+      <Marquee/>
     </header>
   );
 };
