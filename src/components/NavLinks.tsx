@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-export type Category = {
-  id?: string | number;
-  slug: string;
-  icon?: string;
-  nameBn: string;
-};
+import type { Category } from "@/Types/types";
 
 const NavLinks = ({ category }: { category: Category }) => {
   const pathname = usePathname();

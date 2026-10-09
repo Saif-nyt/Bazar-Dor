@@ -1,5 +1,6 @@
 import React from "react";
-import NavLinks, { type Category } from "@/components/NavLinks";
+import NavLinks from "@/components/NavLinks";
+import type { Category } from "@/Types/types";
 
 const NavLink = async () => {
   const res = await fetch("https://api.api-store.workers.dev/api/bazardor/categories");

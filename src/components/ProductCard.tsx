@@ -1,7 +1,12 @@
 import Link from "next/link";
+import type { Product } from "@/Types/types";
 
-const ProductCard = ({ product }) => {
-  const toBanglaNumber = (number) => {
+type ProductCardProps = {
+  product: Product;
+};
+
+const ProductCard = ({ product }: ProductCardProps) => {
+  const toBanglaNumber = (number: number | null | undefined) => {
     if (number === null || number === undefined) {
       return "";
     }

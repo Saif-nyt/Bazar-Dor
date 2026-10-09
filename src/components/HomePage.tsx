@@ -1,8 +1,9 @@
 import ProductCard from "@/components/ProductCard";
+import type { Product } from "@/Types/types";
 
 const HomePage = async () => {
   const response = await fetch("https://api.api-store.workers.dev/api/bazardor/products");
-  const products = await response.json();
+  const products: Product[] = await response.json();
 
 
   const risers = products

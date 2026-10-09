@@ -43,9 +43,10 @@ export interface Product {
 
 // Category information
 export interface Category {
+  id?: string | number;
   slug: string;
   nameBn: string;
-  icon: string;
+  icon?: string;
 }
 
 
@@ -65,4 +66,3 @@ export interface ProductResponse {
 export interface CategoriesResponse {
   categories: Category[];
 }
-

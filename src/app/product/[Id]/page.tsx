@@ -1,5 +1,6 @@
 import next from "next/dist/types";
 import Link from "next/link";
+import type { Product } from "@/Types/types";
 
 export default async function Page({
   params,
@@ -10,7 +11,7 @@ export default async function Page({
 
   
   const res = await fetch(`https://api.api-store.workers.dev/api/bazardor/products/${Id}`)
-  const data = await res.json()
+  const data: Product = await res.json()
   console.log('data is ', data)
 
   return (
