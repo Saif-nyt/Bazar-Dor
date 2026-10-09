@@ -1,8 +1,11 @@
 
-"use client";
+
 
 import React from "react";
 import Link from "next/link";
+
+import NavLink from "@/components/NavLink";
+import Marquee from "@/components/Marquee";
 
 const Navbar = () => {
   const today = new Date();
@@ -32,7 +35,7 @@ const Navbar = () => {
                 বাজার দর
               </h1>
 
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500" suppressHydrationWarning>
                 {banglaDate}
               </p>
             </div>
@@ -57,65 +60,9 @@ const Navbar = () => {
         </div>
 
         {/* Categories */}
-        <nav className="flex gap-2 overflow-x-auto pb-4">
-
-          <Link
-            href="/category/chal"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🍚 চাল
-          </Link>
-
-          <Link
-            href="/category/dal"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🫘 ডাল
-          </Link>
-
-          <Link
-            href="/category/tel"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🛢️ তেল
-          </Link>
-
-          <Link
-            href="/category/shobji"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🥬 সবজি
-          </Link>
-
-          <Link
-            href="/category/mach"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🐟 মাছ
-          </Link>
-
-          <Link
-            href="/category/mangsho"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🥩 মাংস
-          </Link>
-
-          <Link
-            href="/category/dim"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🥚 ডিম-দুধ 🥛
-          </Link>
-
-          <Link
-            href="/category/moshla"
-            className="whitespace-nowrap rounded-full px-4 py-2 text-sm text-gray-600 hover:bg-green-50"
-          >
-            🌶️ মসলা
-          </Link>
-
-        </nav>
+        
+        <NavLink/>
+        <Marquee/>
       </div>
     </header>
   );

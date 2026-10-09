@@ -1,0 +1,17 @@
+import React from "react";
+import NavLinks, { type Category } from "@/components/NavLinks";
+
+const NavLink = async () => {
+  const res = await fetch("https://api.api-store.workers.dev/api/bazardor/categories");
+  const categories: Category[] = await res.json();
+
+  return (
+    <div className="flex items-center gap-2 overflow-x-auto pb-4 pt-1">
+      {categories.map((category) => (
+        <NavLinks key={category.id || category.slug} category={category} />
+      ))}
+    </div>
+  );
+};
+
+export default NavLink;

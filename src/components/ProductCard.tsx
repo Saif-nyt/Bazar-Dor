@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 const ProductCard = ({ product }) => {
-  // Convert English numbers to Bangla numbers
   const toBanglaNumber = (number) => {
     if (number === null || number === undefined) {
       return "";
@@ -9,8 +8,11 @@ const ProductCard = ({ product }) => {
 
     const banglaNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
 
-    return number.toString().replace(/\d/g, (number) => {
-      return banglaNumbers[Number(number)];
+   
+    const absoluteNumber = Math.abs(number);
+
+    return absoluteNumber.toString().replace(/\d/g, (num) => {
+      return banglaNumbers[Number(num)];
     });
   };
 
@@ -18,7 +20,7 @@ const ProductCard = ({ product }) => {
   const isDown = product.change?.dir === "down";
 
   return (
-    <Link href={`/product/${product.slug}`}>
+    <Link href={`/product/${product.id}`}>
       <div className="flex h-full cursor-pointer flex-col justify-between rounded-xl bg-white p-4 shadow-sm transition duration-200 hover:shadow-md">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-100/80 p-1 text-xl shadow-inner">
