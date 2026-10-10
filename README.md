@@ -1,42 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 BazarDor (বাজার দর)
 
-## Getting Started
+BazarDor is a clean, simple, and beginner-friendly web application built using Next.js. It helps users quickly check and compare daily commodity market prices in local Bangladeshi markets at a glance.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Technologies Used
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project was built using accessible and modern web tools:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Next.js (App Router)** — For handling dynamic routing and page components.
+* **React** — For building interactive UI components.
+* **Tailwind CSS & DaisyUI** — For quick styling and creating clean, responsive layouts.
+* **BetterAuth** — For managing secure user sign-ins, sign-ups, and profile management.
+* **React Hot Toast** — For displaying friendly toast notifications.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Editor autocomplete
+## ✨ Key Features
 
-The workspace enables VS Code suggestions, inline completions, parameter hints, TypeScript/JavaScript auto-imports, and Emmet expansions. Install the recommended Tailwind CSS IntelliSense and ESLint extensions when prompted.
+1. **Live Price Ticker & Category Filtering:**
+   Features an animated marquee ticker at the top showing real-time price changes, along with category links to quickly filter products like rice, lentils, vegetables, and more.
 
-To enable the Next.js TypeScript plugin for richer type checking and completions, open the Command Palette (`Ctrl`/`⌘` + `Shift` + `P`), run **TypeScript: Select TypeScript Version**, then choose **Use Workspace Version**.
+2. **Daily Price Risers & Fallers:**
+   Highlights products on the home page whose prices went up (▲) or down (▼) today so users can spot market trends immediately.
 
-## Learn More
+3. **Bengla Numerals & Correct Numerical Sorting:**
+   All product prices and details are formatted using Bengali digits (e.g., ১৪৮ টাকা). The sorting control allows ordering products by price ("Low to High" or "High to Low") using numeric values instead of simple string sorting.
 
-To learn more about Next.js, take a look at the following resources:
+4. **Product Details & Market Price Summaries:**
+   Clicking on any product card opens a detailed view showing its minimum, maximum, and average prices, as well as pricing breakdowns across different local markets (e.g., Karwan Bazar, New Market).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **User Authentication & Profile Updates:**
+   Users can sign in or sign up using email/password or social logins (Google/GitHub). Logged-in users can also visit their profile page to update their display name.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📱 Responsive Layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The application is designed to be fully responsive and works across mobile, tablet, and desktop screens.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---

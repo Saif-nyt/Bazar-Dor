@@ -1,6 +1,25 @@
-import next from "next/dist/types";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import type { Product } from "@/Types/types";
+
+const unitBn: Record<string, string> = {
+  kg: "কেজি",
+  litre: "লিটার",
+  dozen: "ডজন",
+  piece: "পিস",
+};
+
+const toBanglaNumber = (number: number | string | null | undefined): string => {
+  if (number === null || number === undefined) {
+    return "";
+  }
+
+  const banglaNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+
+  return number.toString().replace(/\d/g, (num) => {
+    return banglaNumbers[Number(num)];
+  });
+};
 
 export default async function Page({
   params,
@@ -11,6 +30,11 @@ export default async function Page({
 
   
   const res = await fetch(`https://api.abcz.workers.dev/api/bazardor/products/${Id}`)
+
+  if (!res.ok) {
+    notFound();
+  }
+
   const data: Product = await res.json()
   console.log('data is ', data)
 
@@ -40,12 +64,12 @@ export default async function Page({
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">{data.nameBn}</h1>
                 <p className="text-sm text-gray-600 mt-1">
-                  প্রতি {data.unit === 'kg' ? 'কেজি' : data.unit} · <span className="font-medium text-gray-800">{data.categoryNameBn}</span>
+                  প্রতি {unitBn[data.unit] ?? data.unit} · <span className="font-medium text-gray-800">{data.categoryNameBn}</span>
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
                   গতকালকের তুলনায় আজ দাম{' '}
-                  <span className={data.change.dir === 'up' ? 'text-red-600 font-semibold' : 'text-emerald-700 font-semibold'}>
-                    {data.change.dir === 'up' ? 'বেড়েছে' : 'কমেছে'} · {Math.abs(data.today - data.yesterday)} টাকা
+                  <span className={data.change.dir === 'up' ? 'text-red-600 font-semibold' : data.change.dir === 'down' ? 'text-emerald-700 font-semibold' : 'text-gray-500 font-semibold'}>
+                    {data.change.dir === 'up' ? 'বেড়েছে' : data.change.dir === 'down' ? 'কমেছে' : 'পরিবর্তন হয়নি'} · {toBanglaNumber(Math.abs(data.today - data.yesterday))} টাকা
                   </span>
                 </p>
               </div>
@@ -53,14 +77,14 @@ export default async function Page({
 
             <div className="bg-[#e7ebd9] p-4 rounded-2xl text-center min-w-[150px] w-full md:w-auto border border-emerald-900/10">
               <span className="text-xs font-medium text-gray-600 block mb-1">আজকের দাম</span>
-              <span className="text-3xl font-black text-gray-900">{data.today}</span>
-              <span className="text-xs text-gray-600 block mt-0.5">টাকা / {data.unit}</span>
+              <span className="text-3xl font-black text-gray-900">{toBanglaNumber(data.today)}</span>
+              <span className="text-xs text-gray-600 block mt-0.5">টাকা / {unitBn[data.unit] ?? data.unit}</span>
               
               <div className={`flex items-center justify-center text-xs font-bold mt-1.5 space-x-1 ${
-                data.change.dir === 'up' ? 'text-red-600' : 'text-emerald-700'
+                data.change.dir === 'up' ? 'text-red-600' : data.change.dir === 'down' ? 'text-emerald-700' : 'text-gray-500'
               }`}>
-                <span>{data.change.dir === 'up' ? '▲' : '▼'}</span>
-                <span>{data.change.pct}%</span>
+                <span>{data.change.dir === 'up' ? '▲' : data.change.dir === 'down' ? '▼' : '—'}</span>
+                <span>{toBanglaNumber(data.change.pct)}%</span>
               </div>
             </div>
           </div>
@@ -77,20 +101,20 @@ export default async function Page({
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-[#f8f9f6] p-5 rounded-2xl border border-emerald-900/10 shadow-sm">
                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">সর্বনিম্ন দাম</span>
-                    <span className="text-2xl font-black text-emerald-700 block my-1">{minPrice} টাকা</span>
+                    <span className="text-2xl font-black text-emerald-700 block my-1">{toBanglaNumber(minPrice)} টাকা</span>
                     <span className="text-xs text-gray-500">সবচেয়ে কম দামের বাজার</span>
                   </div>
 
                   <div className="bg-[#f8f9f6] p-5 rounded-2xl border border-emerald-900/10 shadow-sm">
                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">সর্বোচ্চ দাম</span>
-                    <span className="text-2xl font-black text-red-600 block my-1">{maxPrice} টাকা</span>
+                    <span className="text-2xl font-black text-red-600 block my-1">{toBanglaNumber(maxPrice)} টাকা</span>
                     <span className="text-xs text-gray-500">সবচেয়ে বেশি দামের বাজার</span>
                   </div>
 
                   <div className="bg-[#f8f9f6] p-5 rounded-2xl border border-emerald-900/10 shadow-sm">
                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">গড় দাম</span>
-                    <span className="text-2xl font-black text-emerald-800 block my-1">{avgPrice} টাকা</span>
-                    <span className="text-xs text-gray-500">প্রতি {data.unit}-এর হিসাবে</span>
+                    <span className="text-2xl font-black text-emerald-800 block my-1">{toBanglaNumber(avgPrice)} টাকা</span>
+                    <span className="text-xs text-gray-500">প্রতি {unitBn[data.unit] ?? data.unit}-এর হিসাবে</span>
                   </div>
                 </div>
               );
@@ -118,9 +142,9 @@ export default async function Page({
                       <tr key={index} className="hover:bg-[#e8ece0] transition-colors">
                         <td className="py-3.5 px-5 font-bold text-gray-900">{item.market}</td>
                         <td className="py-3.5 px-5 text-gray-700">{item.division}</td>
-                        <td className="py-3.5 px-5 text-gray-800">{item.min} টাকা</td>
-                        <td className="py-3.5 px-5 text-gray-800">{item.max} টাকা</td>
-                        <td className="py-3.5 px-5 text-right font-black text-gray-900">{avg} টাকা</td>
+                        <td className="py-3.5 px-5 text-gray-800">{toBanglaNumber(item.min)} টাকা</td>
+                        <td className="py-3.5 px-5 text-gray-800">{toBanglaNumber(item.max)} টাকা</td>
+                        <td className="py-3.5 px-5 text-right font-black text-gray-900">{toBanglaNumber(avg)} টাকা</td>
                       </tr>
                     );
                   })}

@@ -44,7 +44,7 @@ const SignInPage = () => {
     });
 
     if (data) {
-      console.log("user", { email }, data);
+      toast.success("সফলভাবে সাইন ইন হয়েছেন!");
       router.push("/");
     }
 

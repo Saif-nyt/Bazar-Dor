@@ -14,12 +14,12 @@ const session = await auth.api.getSession({
 })
 const user = session?.user
 if (!user) {
-  return NextResponse.redirect(new URL('/signin', request.url))
+  return NextResponse.redirect(new URL('/signin?protected=1', request.url))
 }
 return NextResponse.next()
 }
  
  
 export const config = {
-  matcher: ['/profile', '/product:path*'],
+  matcher: ['/profile/:path*', '/product:path*'],
 }

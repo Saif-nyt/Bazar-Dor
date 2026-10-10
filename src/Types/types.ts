@@ -10,7 +10,7 @@ export interface Market {
 
 // Price change information
 export interface Change {
-  dir: "up" | "down";
+  dir: "up" | "down" | "flat";
   pct: number;
 }
 

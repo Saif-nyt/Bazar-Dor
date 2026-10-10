@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import CategoryProducts from "@/components/CategoryProducts";
 import { Category, Product } from "../../../Types/types";
 
@@ -19,7 +20,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   );
 
   if (!categoryResponse.ok) {
-    throw new Error("Failed to fetch category");
+    notFound();
   }
 
   const category: Category = await categoryResponse.json();

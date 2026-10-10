@@ -1,18 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { authClient } from "../lib/auth-client";
+import Link from "next/link";
+import { toast } from "react-toastify";
 
 const ProfileForm = () => {
   const { data: session, isPending } = authClient.useSession();
 
   const user = session?.user;
 
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
-  const [isSaving, setIsSaving] = useState(false);
-
-  
   if (isPending) {
     return (
       <main className="min-h-screen bg-[#f3f7f2] px-4 py-16">
@@ -49,41 +45,18 @@ const ProfileForm = () => {
 
   const userInitial = user.name?.charAt(0).toUpperCase() || "U";
 
-  const handleUpdateName = async (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setMessage("");
+  const handleSignOut = async () => {
+    const { error } = await authClient.signOut();
 
-    const newName = name.trim();
-
-    if (!newName) {
-      setMessage("অনুগ্রহ করে আপনার নাম লিখুন।");
+    if (error) {
+      toast.error("সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");
       return;
     }
 
-    setIsSaving(true);
-
-    try {
-      const result = await authClient.updateUser({
-        name: newName,
-      });
-
-      if (result.error) {
-        setMessage(result.error.message || "নাম আপডেট করা যায়নি।");
-        return;
-      }
-
-      setMessage("আপনার নাম সফলভাবে আপডেট হয়েছে।");
-      setName("");
-    } catch {
-      setMessage("একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleSignOut = async () => {
-    await authClient.signOut();
-    window.location.replace("/");
+    toast.success("সফলভাবে সাইন আউট হয়েছেন!");
+    setTimeout(() => {
+      window.location.replace("/");
+    }, 800);
   };
 
   return (
@@ -146,7 +119,7 @@ const ProfileForm = () => {
         <section className="rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6">
           <div className="mb-5">
             <h2 className="text-lg font-bold text-gray-900">
-              নাম হালনাগাদ করুন
+              তথ্য হালনাগাদ
             </h2>
 
             <p className="mt-1 text-sm text-gray-500">
@@ -154,44 +127,12 @@ const ProfileForm = () => {
             </p>
           </div>
 
-          <form onSubmit={handleUpdateName}>
-            <label
-              htmlFor="name"
-              className="mb-2 block text-sm font-medium text-gray-700"
-            >
-              নাম
-            </label>
-
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              placeholder={user.name || "আপনার নাম লিখুন"}
-              className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-green-600 focus:ring-4 focus:ring-green-100"
-            />
-
-            <button
-              type="submit"
-              disabled={isSaving}
-              className="mt-4 rounded-xl bg-green-700 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isSaving ? "আপডেট হচ্ছে..." : "নাম হালনাগাদ করুন"}
-            </button>
-
-            {message && (
-              <p
-                aria-live="polite"
-                className={`mt-4 text-sm ${
-                  message.includes("সফলভাবে")
-                    ? "text-green-700"
-                    : "text-red-600"
-                }`}
-              >
-                {message}
-              </p>
-            )}
-          </form>
+          <Link
+            href="/profile/update"
+            className="inline-block rounded-xl bg-green-700 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-800"
+          >
+            আপডেট ইনফরমেশন
+          </Link>
         </section>
       </div>
     </main>

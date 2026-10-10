@@ -1,23 +1,15 @@
 
 
 
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 
 import NavLink from "@/components/NavLink";
 import Marquee from "@/components/Marquee";
 import UserInfo from "@/components/UserInfo";
+import BanglaDate from "@/components/BanglaDate";
 
 const Navbar = () => {
-  const today = new Date();
-
-  const banglaDate = today.toLocaleDateString("bn-BD", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
   return (
     <header className="border-b border-green-100 bg-white">
       <div className="mx-auto max-w-7xl px-4">
@@ -36,9 +28,7 @@ const Navbar = () => {
                 বাজার দর
               </h1>
 
-              <p className="text-xs text-gray-500" suppressHydrationWarning>
-                {banglaDate}
-              </p>
+              <BanglaDate />
             </div>
           </Link>
 
@@ -48,10 +38,14 @@ const Navbar = () => {
 
         {/* Categories */}
         
-        <NavLink/>
+        <Suspense fallback={<div className="h-10 animate-pulse rounded-xl bg-gray-100" />}>
+          <NavLink/>
+        </Suspense>
         
       </div>
-      <Marquee/>
+      <Suspense fallback={<div className="h-10 animate-pulse bg-green-50" />}>
+        <Marquee/>
+      </Suspense>
     </header>
   );
 };

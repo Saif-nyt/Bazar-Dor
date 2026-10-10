@@ -5,6 +5,13 @@ type ProductCardProps = {
   product: Product;
 };
 
+const unitBn: Record<string, string> = {
+  kg: "কেজি",
+  litre: "লিটার",
+  dozen: "ডজন",
+  piece: "পিস",
+};
+
 const ProductCard = ({ product }: ProductCardProps) => {
   const toBanglaNumber = (number: number | null | undefined) => {
     if (number === null || number === undefined) {
@@ -39,7 +46,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {product.nameBn}
             </h3>
 
-            <p className="text-xs text-gray-400">প্রতি {product.unit}</p>
+            <p className="text-xs text-gray-400">প্রতি {unitBn[product.unit] ?? product.unit}</p>
           </div>
         </div>
 
@@ -63,6 +70,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           >
             {isUp && "▲ "}
             {isDown && "▼ "}
+            {!isUp && !isDown && "— "}
             {toBanglaNumber(product.change?.pct)}%
           </div>
         </div>

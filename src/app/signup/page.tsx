@@ -52,8 +52,8 @@ const SignUpPage = () => {
     });
 
     if (data) {
-      router.push("/");
-      console.log("user", { email, name }, data, error);
+      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! এখন সাইন ইন করুন।");
+      router.push("/signin");
     }
 
     if (error) {

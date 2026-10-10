@@ -45,7 +45,6 @@ const Marquee = async () => {
           return (
             <div
               key={p.id}
-              direction =' right'
 
               className="flex  items-center gap-1 border-r border-green-100 px-6 py-2 text-center"
             >
@@ -72,6 +71,7 @@ const Marquee = async () => {
               >
                 {isUp && "▲ "}
                 {isDown && "▼ "}
+                {!isUp && !isDown && "— "}
                 {toBanglaNumber(p.change?.pct)}%
               </span>
             </div>

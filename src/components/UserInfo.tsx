@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { authClient } from "../lib/auth-client";
+import { toast } from "react-toastify";
 
 const UserInfo = () => {
   const {
@@ -21,12 +22,15 @@ const UserInfo = () => {
     const { error } = await authClient.signOut();
 
     if (error) {
-      console.error("Sign out failed:", error.message);
+      toast.error("সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");
       return;
     }
 
+    toast.success("সফলভাবে সাইন আউট হয়েছেন!");
     setIsOpen(false);
-    window.location.href = "/";
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 800);
   };
 
   if (isPending) {
