@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CategoryProducts from "@/components/CategoryProducts";
 import { Category, Product } from "../../../Types/types";
+import { fetchJson } from "@/lib/api";
 
 type CategoryPageProps = {
   params: Promise<{
@@ -13,29 +14,19 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   
   const { categoriesId } = await params;
 
-  
-  const categoryResponse = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/categories/${categoriesId}`,
-   
-  );
-
-  if (!categoryResponse.ok) {
+  let category: Category;
+  try {
+    category = await fetchJson<Category>(`/categories/${categoriesId}`, 1);
+  } catch {
     notFound();
   }
 
-  const category: Category = await categoryResponse.json();
-
- 
-  const productsResponse = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/products?category=${categoriesId}`,
-   
-  );
-
-  if (!productsResponse.ok) {
-    throw new Error("Failed to fetch products");
+  let products: Product[] = [];
+  try {
+    products = await fetchJson<Product[]>(`/products?category=${categoriesId}`);
+  } catch {
+    products = [];
   }
-
-  const products: Product[] = await productsResponse.json();
 
   return (
     <main className="min-h-screen bg-gray-50">

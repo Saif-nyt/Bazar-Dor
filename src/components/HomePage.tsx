@@ -1,9 +1,14 @@
 import ProductCard from "@/components/ProductCard";
 import type { Product } from "@/Types/types";
+import { fetchJson } from "@/lib/api";
 
 const HomePage = async () => {
-  const response = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
-  const products: Product[] = await response.json();
+  let products: Product[] = [];
+  try {
+    products = await fetchJson<Product[]>("/products");
+  } catch {
+    products = [];
+  }
 
 
   const risers = products
@@ -16,6 +21,16 @@ const HomePage = async () => {
     .filter((product) => product.change?.dir === "down")
     .sort((a, b) => (a.change?.pct || 0) - (b.change?.pct || 0)) 
     .slice(0, 6);
+
+  if (products.length === 0) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-16 text-center">
+        <p className="text-lg text-gray-600">
+          দামের তথ্য এখন পাওয়া যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন।
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div>

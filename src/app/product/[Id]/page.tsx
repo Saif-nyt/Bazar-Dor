@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Product } from "@/Types/types";
+import { fetchJson } from "@/lib/api";
 
 const unitBn: Record<string, string> = {
   kg: "কেজি",
@@ -30,14 +31,13 @@ export default async function Page({
   const { Id } = await params
 
   
-  const res = await fetch(`https://api.abcz.workers.dev/api/bazardor/products/${Id}`)
-
-  if (!res.ok) {
+  let data: Product;
+  try {
+    data = await fetchJson<Product>(`/products/${Id}`, 1);
+  } catch {
     notFound();
   }
 
-  const data: Product = await res.json()
-  console.log('data is ', data)
 
   return (
     <div>

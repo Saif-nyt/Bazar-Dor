@@ -1,6 +1,7 @@
 import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
 import type { Product } from "@/Types/types";
+import { fetchJson } from "@/lib/api";
 
 const unitBn: Record<string, string> = {
   kg: "কেজি",
@@ -25,10 +26,16 @@ const toBanglaNumber = (number: number | null | undefined): string => {
 };
 
 const Marquee = async () => {
-  const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/products"
-  );
-  const data: Product[] = await res.json();
+  let data: Product[] = [];
+  try {
+    data = await fetchJson<Product[]>("/products");
+  } catch {
+    data = [];
+  }
+
+  if (data.length === 0) {
+    return null;
+  }
 
   return (
     <div className="border-t border-green-100 bg-green-50/60">
