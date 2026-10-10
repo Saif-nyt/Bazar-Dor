@@ -11,7 +11,7 @@ import BanglaDate from "@/components/BanglaDate";
 
 const Navbar = () => {
   return (
-    <header className="border-b border-green-100 bg-white">
+    <header className="sticky top-0 z-50 border-b border-green-100 bg-white">
       <div className="mx-auto max-w-7xl px-4">
 
         
@@ -51,4 +51,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
