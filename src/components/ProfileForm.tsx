@@ -1,10 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { authClient } from "../lib/auth-client";
 import Link from "next/link";
 import { toast } from "react-toastify";
 
 const ProfileForm = () => {
+  const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
 
   const user = session?.user;
@@ -54,9 +56,7 @@ const ProfileForm = () => {
     }
 
     toast.success("সফলভাবে সাইন আউট হয়েছেন!");
-    setTimeout(() => {
-      window.location.replace("/");
-    }, 800);
+    router.push("/");
   };
 
   return (

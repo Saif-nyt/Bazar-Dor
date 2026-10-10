@@ -2,10 +2,12 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { authClient } from "../lib/auth-client";
 import { toast } from "react-toastify";
 
 const UserInfo = () => {
+  const router = useRouter();
   const {
     data: session,
     isPending,
@@ -28,9 +30,7 @@ const UserInfo = () => {
 
     toast.success("সফলভাবে সাইন আউট হয়েছেন!");
     setIsOpen(false);
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 800);
+    router.push("/");
   };
 
   if (isPending) {
