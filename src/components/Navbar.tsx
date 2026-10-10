@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import NavLink from "@/components/NavLink";
 import Marquee from "@/components/Marquee";
+import UserInfo from "@/components/UserInfo";
 
 const Navbar = () => {
   const today = new Date();
@@ -42,21 +43,7 @@ const Navbar = () => {
           </Link>
 
           {/* Auth */}
-          <div className="flex items-center gap-2">
-            <Link
-              href="/signin"
-              className="rounded-xl px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            >
-              সাইন ইন
-            </Link>
-
-            <Link
-              href="/signup"
-              className="rounded-xl bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
-            >
-              সাইন আপ
-            </Link>
-          </div>
+          <UserInfo/>
         </div>
 
         {/* Categories */}
