@@ -9,6 +9,28 @@ import { toast } from "react-toastify";
 const SignInPage = () => {
   const router = useRouter();
 
+  const onGoogleSignIn = async () => {
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+
+    if (error) {
+      toast.error(error.message || "Google দিয়ে সাইন ইন করা যায়নি।");
+    }
+  };
+
+  const onGithubSignIn = async () => {
+    const { error } = await authClient.signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    });
+
+    if (error) {
+      toast.error(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি।");
+    }
+  };
+
   const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -105,12 +127,7 @@ const SignInPage = () => {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
               type="button"
-              onClick={() =>
-                authClient.signIn.social({
-                  provider: "google",
-                  callbackURL: "/",
-                })
-              }
+              onClick={onGoogleSignIn}
               className="flex items-center justify-center gap-2 rounded-xl border border-[#dce5dc] px-3 py-3 text-sm font-semibold text-gray-700 transition hover:bg-green-50"
             >
               <span className="text-base font-bold text-blue-600">G</span>
@@ -119,12 +136,7 @@ const SignInPage = () => {
 
             <button
               type="button"
-              onClick={() =>
-                authClient.signIn.social({
-                  provider: "github",
-                  callbackURL: "/",
-                })
-              }
+              onClick={onGithubSignIn}
               className="flex items-center justify-center gap-2 rounded-xl border border-[#dce5dc] px-3 py-3 text-sm font-semibold text-gray-700 transition hover:bg-green-50"
             >
               <span className="text-base">◉</span>

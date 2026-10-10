@@ -10,7 +10,7 @@ export default async function Page({
   const { Id } = await params
 
   
-  const res = await fetch(`https://api.api-store.workers.dev/api/bazardor/products/${Id}`)
+  const res = await fetch(`https://api.abcz.workers.dev/api/bazardor/products/${Id}`)
   const data: Product = await res.json()
   console.log('data is ', data)
 

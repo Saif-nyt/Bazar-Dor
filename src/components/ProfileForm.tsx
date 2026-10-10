@@ -83,6 +83,7 @@ const ProfileForm = () => {
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    window.location.replace("/");
   };
 
   return (
@@ -105,9 +106,18 @@ const ProfileForm = () => {
         <section className="mb-5 rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
             <div className="flex min-w-0 flex-1 items-center gap-4">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-green-700 text-2xl font-bold text-white shadow-sm">
-                {userInitial}
-              </div>
+              {user.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={user.image}
+                  alt={user.name || "User"}
+                  className="h-16 w-16 rounded-2xl object-cover shadow-sm"
+                />
+              ) : (
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-green-700 text-2xl font-bold text-white shadow-sm">
+                  {userInitial}
+                </div>
+              )}
 
               <div className="min-w-0">
                 <h2 className="truncate text-xl font-bold text-gray-900">

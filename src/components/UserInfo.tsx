@@ -46,9 +46,18 @@ const UserInfo = () => {
             aria-expanded={isOpen}
             aria-label="User menu"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-green-700 text-sm font-bold text-white">
-              {userInitial}
-            </span>
+            {user.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={user.image}
+                alt={user.name || "User"}
+                className="h-9 w-9 rounded-full object-cover"
+              />
+            ) : (
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-green-700 text-sm font-bold text-white">
+                {userInitial}
+              </span>
+            )}
 
             <span className="hidden max-w-24 truncate text-sm font-semibold text-gray-800 sm:block">
               {user.name}

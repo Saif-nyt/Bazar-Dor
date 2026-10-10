@@ -14,7 +14,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
   
   const categoryResponse = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/categories/${categoriesId}`,
+    `https://api.abcz.workers.dev/api/bazardor/categories/${categoriesId}`,
    
   );
 
@@ -26,7 +26,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
  
   const productsResponse = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products?category=${categoriesId}`,
+    `https://api.abcz.workers.dev/api/bazardor/products?category=${categoriesId}`,
    
   );
 

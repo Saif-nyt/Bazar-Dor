@@ -2,7 +2,7 @@ import ProductCard from "@/components/ProductCard";
 import type { Product } from "@/Types/types";
 
 const HomePage = async () => {
-  const response = await fetch("https://api.api-store.workers.dev/api/bazardor/products");
+  const response = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
   const products: Product[] = await response.json();
 
 
