@@ -18,8 +18,9 @@ const toBanglaNumber = (number: number | null | undefined): string => {
 
   const absoluteNumber = Math.abs(number);
 
-  return absoluteNumber.toString().replace(/\d/g, (num) => {
-    return banglaNumbers[Number(num)];
+  return absoluteNumber.toString().replace(/\d/g, (num: string) => {
+    const mapped = banglaNumbers[Number(num)];
+    return mapped ?? num;
   });
 };
 

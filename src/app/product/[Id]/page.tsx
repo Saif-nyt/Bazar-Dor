@@ -16,8 +16,9 @@ const toBanglaNumber = (number: number | string | null | undefined): string => {
 
   const banglaNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
 
-  return number.toString().replace(/\d/g, (num) => {
-    return banglaNumbers[Number(num)];
+  return number.toString().replace(/\d/g, (num: string) => {
+    const mapped = banglaNumbers[Number(num)];
+    return mapped ?? num;
   });
 };
 
