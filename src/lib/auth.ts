@@ -10,8 +10,30 @@ const getRequiredEnv = (name: string): string => {
   return value;
 };
 
+// On Vercel serverless, module scope resets between invocations but the
+// lambda environment can be reused (warm). Caching on globalThis reuses the
+// same MongoClient / auth instance across invocations and avoids the
+// "MongoTopologyClosedError: Topology is closed" failure.
+const globalForAuth = globalThis as unknown as {
+  _mongoClient?: MongoClient;
+  _auth?: ReturnType<typeof createAuth>;
+};
+
+function getMongoClient(): MongoClient {
+  if (!globalForAuth._mongoClient) {
+    globalForAuth._mongoClient = new MongoClient(getRequiredEnv("MONGODB_URL"), {
+      maxPoolSize: 10,
+      minPoolSize: 0,
+      maxIdleTimeMS: 30000,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
+  }
+  return globalForAuth._mongoClient;
+}
+
 function createAuth() {
-  const client = new MongoClient(getRequiredEnv("MONGODB_URL"));
+  const client = getMongoClient();
   const db = client.db();
 
   return betterAuth({
@@ -36,11 +58,9 @@ function createAuth() {
   });
 }
 
-let authInstance: ReturnType<typeof createAuth> | null = null;
-
 export function getAuth(): ReturnType<typeof createAuth> {
-  if (!authInstance) {
-    authInstance = createAuth();
+  if (!globalForAuth._auth) {
+    globalForAuth._auth = createAuth();
   }
-  return authInstance;
+  return globalForAuth._auth;
 }
